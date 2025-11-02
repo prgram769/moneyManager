@@ -16,12 +16,12 @@
 <body>
   <header>
     <h1>
-      Prueba
+      Money Manager
     </h1>
   </header>
   <main>
     <div class="mainContainer">
-      <form action="save.json" method="post">
+      <form action="newSheet.html" method="post">
         <h3>
           Date:
           <input type="date" id="date" required>
@@ -39,12 +39,11 @@
         </h3>
         <h3>
           Amount:
-          <input type="number" id="amount">
+          <input type="number" id="amount" required>
         </h3>
-        <button type="submit">Add</button>
+        <button type="button" id="submitButton">Add</button>
       </form>
     </div>
-    <h1 style="border-bottom: 2px solid black;"></h1>
   </main>
 </body>
 
