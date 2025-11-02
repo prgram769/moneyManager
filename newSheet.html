@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="title">New sheet</title>
+  <link rel="stylesheet" href="css/newSheet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Bitcount+Grid+Single:wght@100..900&family=Homemade+Apple&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Monoton&family=Parkinsans:wght@300..800&family=Playwrite+DE+SAS:wght@100..400&family=Press+Start+2P&family=Ribeye+Marrow&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Saira:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>
+      Prueba
+    </h1>
+  </header>
+  <main>
+    <div class="mainContainer">
+      <form action="save.json" method="post">
+        <h3>
+          Date:
+          <input type="date" id="date" required>
+        </h3>
+        <h3>
+          Description:
+          <input type="text" id="description" placeholder="Introduce a description" required>
+        </h3>
+        <h3>
+          Category:
+          <select id="category" required>
+            <option>Income</option>
+            <option>Expense</option>
+          </select>
+        </h3>
+        <h3>
+          Amount:
+          <input type="number" id="amount">
+        </h3>
+        <button type="submit">Add</button>
+      </form>
+    </div>
+    <h1 style="border-bottom: 2px solid black;"></h1>
+  </main>
+</body>
+
+</html>
