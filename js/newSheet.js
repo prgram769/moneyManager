@@ -18,13 +18,11 @@ function addRemoveMoney() {
 
   var horizontalLine = document.createElement("p");
   
-  horizontalLine.textContent = " ";
-  horizontalLine.setAttribute("id", "horizontalLine");
   horizontalLine.style.borderBottom = "2px solid black";
 
-  body.appendChild(horizontalLine);
+  document.body.appendChild(horizontalLine);
 }
 
-submitButton.addEventListener("click", submitButton => {
+submitButton.addEventListener("click", (event) => {
   addRemoveMoney();
 })
