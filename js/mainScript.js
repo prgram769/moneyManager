@@ -2,38 +2,19 @@ const dateInput = document.getElementById("date");
 const descriptionInput = document.getElementById("description");
 const categoryInput = document.getElementById("category");
 const amountInput = document.getElementById("amount");
-const submitButton = document.getElementById("submitButton");
+const addTableButton = document.getElementById("addTableButton");
 
 var mainContainer = document.getElementById("mainContainerID");
 var form = document.getElementById("formID");
 var main = document.getElementById("mainSemantic");
 var elementID = 0;
 
-function addRemoveMoney() {
-
-  var dateInputValue = dateInput.value;
-  var descriptionInputValue = descriptionInput.value;
-  var categoryInputValue = categoryInput.value;
-  var amountInputValue = amountInput.value;
-  
-  // Create horizontal line
-
-  if (document.getElementById("horizontalLine") == null) {
-    var horizontalLine = document.createElement("p");
-
-    horizontalLine.setAttribute("id", "horizontalLine");
-    horizontalLine.style.borderBottom = "2px solid black";
-
-    mainContainer.appendChild(horizontalLine);
-  }
-
-  // Create section for table 1
-
+function createSection(prueba) {
   if (document.getElementById("section") == null) {
 
     var sectionTable1 = document.createElement("section");
 
-    sectionTable1.setAttribute("id", `section${elementID}`);
+    sectionTable1.setAttribute("id", `${}`);
 
     main.appendChild(sectionTable1);
 
@@ -41,14 +22,26 @@ function addRemoveMoney() {
       var addSectionBtn = document.createElement("button");
 
       addSectionBtn.setAttribute("id", "addSectionBtn");
+      addSectionBtn.type = "button";
       addSectionBtn.textContent = "Add section";
 
       form.appendChild(addSectionBtn);
     }
-  }
 
-  // create the table
-  
+    if (document.getElementById("addElementsBtn") == null) {
+
+      var addElementsBtn = document.createElement("button");
+
+      addElementsBtn.setAttribute("id", "addElementsBtn");
+      addElementsBtn.type = "submit";
+      addElementsBtn.textContent = "Add elements";
+
+      form.appendChild(addElementsBtn);
+    }
+  }
+}
+
+function createTable(prueba) {
   var table = document.createElement("table");
 
   table.setAttribute("id", `table${elementID}`);
@@ -78,7 +71,9 @@ function addRemoveMoney() {
   tableAmount.setAttribute("id", `tableAmount${elementID}`);
   tableAmount.textContent = "Amount";
 
-  sectionTable1.appendChild(table);
+  var sectionTable = document.getElementById(`section${elementID}`);
+
+  sectionTable.appendChild(table);
 
   table.appendChild(tableTitle);
   table.appendChild(tableDate);
@@ -86,9 +81,42 @@ function addRemoveMoney() {
   table.appendChild(tableCategory);
   table.appendChild(tableAmount);
 
+}
+
+function addRemoveMoney() {
+
+  var dateInputValue = dateInput.value;
+  var descriptionInputValue = descriptionInput.value;
+  var categoryInputValue = categoryInput.value;
+  var amountInputValue = amountInput.value;
+
+  // Create horizontal line
+
+  if (document.getElementById("horizontalLine") == null) {
+    var horizontalLine = document.createElement("p");
+
+    horizontalLine.setAttribute("id", "horizontalLine");
+    horizontalLine.style.borderBottom = "2px solid black";
+
+    mainContainer.appendChild(horizontalLine);
+  }
+
+  // Create section for table 1
+
+  createSection();
+
+  // create the table
+
+  var prueba;
+
+  prompt("Enter the name of the table: ", prueba)
+  // alert(`Enter the name of the table: ${prueba}`);
+  console.log(prueba)
+  createTable(prueba);
+
   elementID++;
 }
 
-submitButton.addEventListener("click", (event) => {
+addTableButton.addEventListener("click", (event) => {
   addRemoveMoney();
 })
