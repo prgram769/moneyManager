@@ -7,33 +7,67 @@ const addTableButton = document.getElementById("addTableButton");
 var mainContainer = document.getElementById("mainContainerID");
 var form = document.getElementById("formID");
 var main = document.getElementById("mainSemantic");
+var addBtn = document.getElementById("addElementsBtn");
+var tableDateHead = document.getElementById(`tableDate${elementID}`);
+var tableDescriptionHead = document.getElementById(`tableDescription${elementID}`);
+var tableCategoryHead = document.getElementById(`tableCategory${elementID}`);
+var tableAmountHead = document.getElementById(`tableAmount${elementID}`);
 var elementID = 0;
 
-function createSection(prueba) {
+function addElementsToTable() {
+  
+  // Geting the values to the table's rows
+
+  var dateInputValue = dateInput.value;
+  var descriptionInputValue = descriptionInput.value;
+  var categoryInputValue = categoryInput.value;
+  var amountInputValue = amountInput.value;
+
+  // Making the table's rows
+
+  var tableDateRow = document.createElement("td");
+
+  tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
+  tableDateRow.textContent = dateInputValue;
+
+  var tableDescriptionRow = document.createElement("td");
+
+  tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
+  tableDescriptionRow.textContent = descriptionInputValue;
+
+  var tableCategoryRow = document.createElement("td");
+
+  tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
+  tableCategoryRow.textContent = categoryInputValue;
+
+  var tableAmountRow = document.createElement("td");
+
+  tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
+  tableAmountRow.textContent = amountInputValue;
+
+  // Adding the elements to the table 
+
+  tableDateHead.appendChild(tableDateRow);
+  tableDescriptionHead.appendChild(tableDescriptionRow);
+  tableCategoryHead.appendChild(tableCategoryRow);
+  tableAmountHead.appendChild(tableAmountRow);
+}
+
+function createSection() {
   if (document.getElementById("section") == null) {
 
-    var sectionTable1 = document.createElement("section");
+    var sectionTable = document.createElement("section");
 
-    sectionTable1.setAttribute("id", `${}`);
+    sectionTable.setAttribute("id", `section${elementID}`);
 
-    main.appendChild(sectionTable1);
-
-    if (document.getElementById("addSectionBtn") == null) {
-      var addSectionBtn = document.createElement("button");
-
-      addSectionBtn.setAttribute("id", "addSectionBtn");
-      addSectionBtn.type = "button";
-      addSectionBtn.textContent = "Add section";
-
-      form.appendChild(addSectionBtn);
-    }
+    main.appendChild(sectionTable);
 
     if (document.getElementById("addElementsBtn") == null) {
 
       var addElementsBtn = document.createElement("button");
 
       addElementsBtn.setAttribute("id", "addElementsBtn");
-      addElementsBtn.type = "submit";
+      addElementsBtn.type = "button";
       addElementsBtn.textContent = "Add elements";
 
       form.appendChild(addElementsBtn);
@@ -41,7 +75,7 @@ function createSection(prueba) {
   }
 }
 
-function createTable(prueba) {
+function createTable(tableName) {
   var table = document.createElement("table");
 
   table.setAttribute("id", `table${elementID}`);
@@ -49,7 +83,7 @@ function createTable(prueba) {
   var tableTitle = document.createElement("caption");
 
   tableTitle.setAttribute("id", `tableTitle${elementID}`);
-  tableTitle.textContent = `Table${elementID}`;
+  tableTitle.textContent = tableName;
 
   var tableDate = document.createElement("th");
 
@@ -85,11 +119,6 @@ function createTable(prueba) {
 
 function addRemoveMoney() {
 
-  var dateInputValue = dateInput.value;
-  var descriptionInputValue = descriptionInput.value;
-  var categoryInputValue = categoryInput.value;
-  var amountInputValue = amountInput.value;
-
   // Create horizontal line
 
   if (document.getElementById("horizontalLine") == null) {
@@ -101,22 +130,25 @@ function addRemoveMoney() {
     mainContainer.appendChild(horizontalLine);
   }
 
-  // Create section for table 1
+  // Create sections for tables
 
   createSection();
 
   // create the table
 
-  var prueba;
+  var tableName = prompt("Enter the name of the table");
 
-  prompt("Enter the name of the table: ", prueba)
-  // alert(`Enter the name of the table: ${prueba}`);
-  console.log(prueba)
-  createTable(prueba);
+  tableName = tableName.charAt(0).toUpperCase() + tableName.slice(1);
+
+  createTable(tableName);
 
   elementID++;
 }
 
 addTableButton.addEventListener("click", (event) => {
   addRemoveMoney();
+})
+
+addElementsBtn.addEventListener("click", (event) => {
+  addElementsToTable();
 })
