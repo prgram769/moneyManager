@@ -79,22 +79,22 @@ function createTable(tableName) {
 
       // Making the table's rows
 
-      var tableDateRow = document.createElement("td");
+      var tableDateRow = document.createElement("tr");
 
       tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
       tableDateRow.textContent = dateInputValue;
 
-      var tableDescriptionRow = document.createElement("td");
+      var tableDescriptionRow = document.createElement("tr");
 
       tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
       tableDescriptionRow.textContent = descriptionInputValue;
 
-      var tableCategoryRow = document.createElement("td");
+      var tableCategoryRow = document.createElement("tr");
 
       tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
       tableCategoryRow.textContent = categoryInputValue;
 
-      var tableAmountRow = document.createElement("td");
+      var tableAmountRow = document.createElement("tr");
 
       tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
       tableAmountRow.textContent = amountInputValue;
@@ -106,6 +106,7 @@ function createTable(tableName) {
       tableCategory.appendChild(tableCategoryRow);
       tableAmount.appendChild(tableAmountRow);
 
+      elementID++;
     })
   }
 
@@ -131,10 +132,10 @@ function addRemoveMoney() {
   tableName = tableName.charAt(0).toUpperCase() + tableName.slice(1);
 
   createTable(tableName);
-
-  elementID++;
 }
 
 addTableButton.addEventListener("click", (event) => {
   addRemoveMoney();
+
+  elementID++;
 })
