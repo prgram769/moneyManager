@@ -8,53 +8,10 @@ var mainContainer = document.getElementById("mainContainerID");
 var form = document.getElementById("formID");
 var main = document.getElementById("mainSemantic");
 var addBtn = document.getElementById("addElementsBtn");
-var tableDateHead = document.getElementById(`tableDate${elementID}`);
-var tableDescriptionHead = document.getElementById(`tableDescription${elementID}`);
-var tableCategoryHead = document.getElementById(`tableCategory${elementID}`);
-var tableAmountHead = document.getElementById(`tableAmount${elementID}`);
 var elementID = 0;
 
-function addElementsToTable() {
-  
-  // Geting the values to the table's rows
-
-  var dateInputValue = dateInput.value;
-  var descriptionInputValue = descriptionInput.value;
-  var categoryInputValue = categoryInput.value;
-  var amountInputValue = amountInput.value;
-
-  // Making the table's rows
-
-  var tableDateRow = document.createElement("td");
-
-  tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
-  tableDateRow.textContent = dateInputValue;
-
-  var tableDescriptionRow = document.createElement("td");
-
-  tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
-  tableDescriptionRow.textContent = descriptionInputValue;
-
-  var tableCategoryRow = document.createElement("td");
-
-  tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
-  tableCategoryRow.textContent = categoryInputValue;
-
-  var tableAmountRow = document.createElement("td");
-
-  tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
-  tableAmountRow.textContent = amountInputValue;
-
-  // Adding the elements to the table 
-
-  tableDateHead.appendChild(tableDateRow);
-  tableDescriptionHead.appendChild(tableDescriptionRow);
-  tableCategoryHead.appendChild(tableCategoryRow);
-  tableAmountHead.appendChild(tableAmountRow);
-}
-
-function createSection() {
-  if (document.getElementById("section") == null) {
+function createTable(tableName) {
+  if (document.getElementById(`section${elementID}`) == null) {
 
     var sectionTable = document.createElement("section");
 
@@ -62,58 +19,95 @@ function createSection() {
 
     main.appendChild(sectionTable);
 
-    if (document.getElementById("addElementsBtn") == null) {
+    var table = document.createElement("table");
 
-      var addElementsBtn = document.createElement("button");
+    table.setAttribute("id", `table${elementID}`);
 
-      addElementsBtn.setAttribute("id", "addElementsBtn");
-      addElementsBtn.type = "button";
-      addElementsBtn.textContent = "Add elements";
+    var tableTitle = document.createElement("caption");
 
-      form.appendChild(addElementsBtn);
-    }
+    tableTitle.setAttribute("id", `tableTitle${elementID}`);
+    tableTitle.textContent = tableName;
+
+    var tableDate = document.createElement("th");
+
+    tableDate.setAttribute("id", `tableDate${elementID}`);
+    tableDate.textContent = "Date";
+
+    var tableDescription = document.createElement("th");
+
+    tableDescription.setAttribute("id", `tableDescription${elementID}`);
+    tableDescription.textContent = "Description";
+
+    var tableCategory = document.createElement("th");
+
+    tableCategory.setAttribute("id", `tableCategory${elementID}`);
+    tableCategory.textContent = "Category";
+
+    var tableAmount = document.createElement("th");
+
+    tableAmount.setAttribute("id", `tableAmount${elementID}`);
+    tableAmount.textContent = "Amount";
+
+    sectionTable.appendChild(table);
+
+    table.appendChild(tableTitle);
+    table.appendChild(tableDate);
+    table.appendChild(tableDescription);
+    table.appendChild(tableCategory);
+    table.appendChild(tableAmount);
+
   }
-}
 
-function createTable(tableName) {
-  var table = document.createElement("table");
+  if (document.getElementById("addElementsBtn") == null) {
 
-  table.setAttribute("id", `table${elementID}`);
+    var addElementsBtn = document.createElement("button");
 
-  var tableTitle = document.createElement("caption");
+    addElementsBtn.setAttribute("id", "addElementsBtn");
+    addElementsBtn.type = "button";
+    addElementsBtn.textContent = "Add elements";
 
-  tableTitle.setAttribute("id", `tableTitle${elementID}`);
-  tableTitle.textContent = tableName;
+    form.appendChild(addElementsBtn);
 
-  var tableDate = document.createElement("th");
+    addElementsBtn.addEventListener("click", (event) => {
 
-  tableDate.setAttribute("id", `tableDate${elementID}`);
-  tableDate.textContent = "Date";
+      // Geting the values to the table's rows
 
-  var tableDescription = document.createElement("th");
+      var dateInputValue = dateInput.value;
+      var descriptionInputValue = descriptionInput.value;
+      var categoryInputValue = categoryInput.value;
+      var amountInputValue = amountInput.value;
 
-  tableDescription.setAttribute("id", `tableDescription${elementID}`);
-  tableDescription.textContent = "Description";
+      // Making the table's rows
 
-  var tableCategory = document.createElement("th");
+      var tableDateRow = document.createElement("td");
 
-  tableCategory.setAttribute("id", `tableCategory${elementID}`);
-  tableCategory.textContent = "Category";
+      tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
+      tableDateRow.textContent = dateInputValue;
 
-  var tableAmount = document.createElement("th");
+      var tableDescriptionRow = document.createElement("td");
 
-  tableAmount.setAttribute("id", `tableAmount${elementID}`);
-  tableAmount.textContent = "Amount";
+      tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
+      tableDescriptionRow.textContent = descriptionInputValue;
 
-  var sectionTable = document.getElementById(`section${elementID}`);
+      var tableCategoryRow = document.createElement("td");
 
-  sectionTable.appendChild(table);
+      tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
+      tableCategoryRow.textContent = categoryInputValue;
 
-  table.appendChild(tableTitle);
-  table.appendChild(tableDate);
-  table.appendChild(tableDescription);
-  table.appendChild(tableCategory);
-  table.appendChild(tableAmount);
+      var tableAmountRow = document.createElement("td");
+
+      tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
+      tableAmountRow.textContent = amountInputValue;
+
+      // Adding the elements to the table 
+
+      tableDate.appendChild(tableDateRow);
+      tableDescription.appendChild(tableDescriptionRow);
+      tableCategory.appendChild(tableCategoryRow);
+      tableAmount.appendChild(tableAmountRow);
+
+    })
+  }
 
 }
 
@@ -130,10 +124,6 @@ function addRemoveMoney() {
     mainContainer.appendChild(horizontalLine);
   }
 
-  // Create sections for tables
-
-  createSection();
-
   // create the table
 
   var tableName = prompt("Enter the name of the table");
@@ -147,8 +137,4 @@ function addRemoveMoney() {
 
 addTableButton.addEventListener("click", (event) => {
   addRemoveMoney();
-})
-
-addElementsBtn.addEventListener("click", (event) => {
-  addElementsToTable();
 })
