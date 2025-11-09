@@ -60,13 +60,17 @@ function createTable(tableName) {
 
   if (document.getElementById("addElementsBtn") == null) {
 
+    var addElementsCell = document.createElement("td");
+
+    table.appendChild(addElementsCell);
+
     var addElementsBtn = document.createElement("button");
 
     addElementsBtn.setAttribute("id", "addElementsBtn");
     addElementsBtn.type = "button";
     addElementsBtn.textContent = "Add elements";
 
-    form.appendChild(addElementsBtn);
+    addElementsCell.appendChild(addElementsBtn);
 
     addElementsBtn.addEventListener("click", (event) => {
 
@@ -100,6 +104,11 @@ function createTable(tableName) {
       tableAmountRow.textContent = amountInputValue;
 
       // Adding the elements to the table 
+      
+      var elementTarget = event.target;
+      var targetParent = elementTarget.closest("table");
+
+      console.log(targetParent);
 
       tableDate.appendChild(tableDateRow);
       tableDescription.appendChild(tableDescriptionRow);
