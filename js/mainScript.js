@@ -46,7 +46,7 @@ function createTable(tableName) {
 
     tableCategory.setAttribute("id", `tableCategory${elementID}`);
     tableCategory.textContent = "Category";
-
+    
     var tableAmount = document.createElement("th");
 
     tableAmount.setAttribute("id", `tableAmount${elementID}`);
@@ -85,34 +85,43 @@ function createTable(tableName) {
 
     // Making the table's rows
 
-    var tableDateRow = document.createElement("tr");
+    if (dateInputValue && descriptionInputValue && categoryInputValue && amountInputValue != null) {
+      var tableDateRow = document.createElement("tr");
 
-    tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
-    tableDateRow.textContent = dateInputValue;
+      tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
+      tableDateRow.textContent = dateInputValue;
 
-    var tableDescriptionRow = document.createElement("tr");
+      var tableDescriptionRow = document.createElement("tr");
 
-    tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
-    tableDescriptionRow.textContent = descriptionInputValue;
+      tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
+      tableDescriptionRow.textContent = descriptionInputValue;
 
-    var tableCategoryRow = document.createElement("tr");
+      var tableCategoryRow = document.createElement("tr");
 
-    tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
-    tableCategoryRow.textContent = categoryInputValue;
+      tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
+      tableCategoryRow.textContent = categoryInputValue;
 
-    var tableAmountRow = document.createElement("tr");
+      var tableAmountRow = document.createElement("tr");
 
-    tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
-    tableAmountRow.textContent = amountInputValue;
+      tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
+      tableAmountRow.textContent = amountInputValue;
 
-    // Adding the elements to the table 
+      // Adding the elements to the table 
 
-    tableDate.appendChild(tableDateRow);
-    tableDescription.appendChild(tableDescriptionRow);
-    tableCategory.appendChild(tableCategoryRow);
-    tableAmount.appendChild(tableAmountRow);
+      tableDate.appendChild(tableDateRow);
+      tableDescription.appendChild(tableDescriptionRow);
+      tableCategory.appendChild(tableCategoryRow);
+      tableAmount.appendChild(tableAmountRow);
+      
+      dateInput.value = "";
+      descriptionInput.value = "";
+      categoryInput.value = "";
+      amountInput.value = "";
 
-    elementID++;
+      elementID++;
+    } else {
+      alert("You must fill the gaps with the specific data");
+    }
   })
 }
 
