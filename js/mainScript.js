@@ -62,69 +62,58 @@ function createTable(tableName) {
 
   }
 
-  if (document.getElementById("addElementsBtn") == null) {
+  var addElementsCell = document.createElement("td");
 
-    var addElementsCell = document.createElement("td");
+  table.appendChild(addElementsCell);
 
-    table.appendChild(addElementsCell);
+  var addElementsBtn = document.createElement("button");
 
-    var addElementsBtn = document.createElement("button");
+  addElementsBtn.setAttribute("id", "addElementsBtn");
+  addElementsBtn.type = "button";
+  addElementsBtn.textContent = "Add elements";
 
-    addElementsBtn.setAttribute("id", "addElementsBtn");
-    addElementsBtn.type = "button";
-    addElementsBtn.textContent = "Add elements";
+  addElementsCell.appendChild(addElementsBtn);
 
-    addElementsCell.appendChild(addElementsBtn);
+  addElementsBtn.addEventListener("click", (event) => {
 
-    addElementsBtn.addEventListener("click", (event) => {
+    // Geting the values to the table's rows
 
-      // Geting the values to the table's rows
+    var dateInputValue = dateInput.value;
+    var descriptionInputValue = descriptionInput.value;
+    var categoryInputValue = categoryInput.value;
+    var amountInputValue = amountInput.value;
 
-      var dateInputValue = dateInput.value;
-      var descriptionInputValue = descriptionInput.value;
-      var categoryInputValue = categoryInput.value;
-      var amountInputValue = amountInput.value;
+    // Making the table's rows
 
-      // Making the table's rows
+    var tableDateRow = document.createElement("tr");
 
-      var tableDateRow = document.createElement("tr");
+    tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
+    tableDateRow.textContent = dateInputValue;
 
-      tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
-      tableDateRow.textContent = dateInputValue;
+    var tableDescriptionRow = document.createElement("tr");
 
-      var tableDescriptionRow = document.createElement("tr");
+    tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
+    tableDescriptionRow.textContent = descriptionInputValue;
 
-      tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
-      tableDescriptionRow.textContent = descriptionInputValue;
+    var tableCategoryRow = document.createElement("tr");
 
-      var tableCategoryRow = document.createElement("tr");
+    tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
+    tableCategoryRow.textContent = categoryInputValue;
 
-      tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
-      tableCategoryRow.textContent = categoryInputValue;
+    var tableAmountRow = document.createElement("tr");
 
-      var tableAmountRow = document.createElement("tr");
+    tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
+    tableAmountRow.textContent = amountInputValue;
 
-      tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
-      tableAmountRow.textContent = amountInputValue;
+    // Adding the elements to the table 
 
-      // Adding the elements to the table 
-      
-      var elementTarget = event.target.closest("table");
-      var targetParent = elementTarget.closest("table");
+    tableDate.appendChild(tableDateRow);
+    tableDescription.appendChild(tableDescriptionRow);
+    tableCategory.appendChild(tableCategoryRow);
+    tableAmount.appendChild(tableAmountRow);
 
-      
-
-      console.log(elementTarget);
-
-      tableDate.appendChild(tableDateRow);
-      tableDescription.appendChild(tableDescriptionRow);
-      tableCategory.appendChild(tableCategoryRow);
-      tableAmount.appendChild(tableAmountRow);
-
-      elementID++;
-    })
-  }
-
+    elementID++;
+  })
 }
 
 function addRemoveMoney() {
