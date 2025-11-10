@@ -1,3 +1,5 @@
+// Getting vars
+
 const dateInput = document.getElementById("date");
 const descriptionInput = document.getElementById("description");
 const categoryInput = document.getElementById("category");
@@ -9,6 +11,8 @@ var form = document.getElementById("formID");
 var main = document.getElementById("mainSemantic");
 var addBtn = document.getElementById("addElementsBtn");
 var elementID = 0;
+
+// Creating table
 
 function createTable(tableName) {
   if (document.getElementById(`section${elementID}`) == null) {
@@ -105,10 +109,12 @@ function createTable(tableName) {
 
       // Adding the elements to the table 
       
-      var elementTarget = event.target;
+      var elementTarget = event.target.closest("table");
       var targetParent = elementTarget.closest("table");
 
-      console.log(targetParent);
+      
+
+      console.log(elementTarget);
 
       tableDate.appendChild(tableDateRow);
       tableDescription.appendChild(tableDescriptionRow);
