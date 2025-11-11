@@ -46,7 +46,7 @@ function createTable(tableName) {
 
     tableCategory.setAttribute("id", `tableCategory${elementID}`);
     tableCategory.textContent = "Category";
-    
+
     var tableAmount = document.createElement("th");
 
     tableAmount.setAttribute("id", `tableAmount${elementID}`);
@@ -106,17 +106,54 @@ function createTable(tableName) {
       tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
       tableAmountRow.textContent = amountInputValue;
 
+      if (document.getElementById("tableTotal") == null) {
+        var tableTotal = document.createElement("th");
+
+        tableTotal.setAttribute("id", "tableTotal");
+        tableTotal.textContent = "Total";
+
+        table.appendChild(tableTotal);
+
+        var tablesTotalValue = parseInt(amountInputValue);
+        
+        tablesTotalValue += amountInputValue;
+
+        var tableTotalLabel = document.createElement("tr");
+
+        tableTotalLabel.setAttribute("id", "tableTotalLabel");
+        tableTotalLabel.textContent = tablesTotalValue;
+
+        tableTotal.appendChild(tableTotalLabel);
+      } 
+
       // Adding the elements to the table 
 
       tableDate.appendChild(tableDateRow);
       tableDescription.appendChild(tableDescriptionRow);
       tableCategory.appendChild(tableCategoryRow);
       tableAmount.appendChild(tableAmountRow);
-      
+
       dateInput.value = "";
       descriptionInput.value = "";
       categoryInput.value = "";
       amountInput.value = "";
+
+      //TERMINAR DE MONTAR
+      //
+      // if (document.getElementById("totalSection") && document.getElementById("totalLabel") == null) {
+      //   var totalSection = document.createElement("section");
+      //
+      //   totalSection.setAttribute("id", "totalSection");
+      //
+      //   var totalLabel = document.createElement("label");
+      //
+      //   var total = ;
+      //
+      //   totalLabel.setAttribute("id", "totalLabel");
+      //   totalLabel.textContent = 
+      //
+      //   totalSection.appendChild(totalLabel);
+      // }
 
       elementID++;
     } else {
