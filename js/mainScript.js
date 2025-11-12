@@ -11,6 +11,8 @@ var form = document.getElementById("formID");
 var main = document.getElementById("mainSemantic");
 var addBtn = document.getElementById("addElementsBtn");
 var elementID = 0;
+var tableTotalValue = 0;
+var totalValue = 0;
 
 // Creating table
 
@@ -52,6 +54,11 @@ function createTable(tableName) {
     tableAmount.setAttribute("id", `tableAmount${elementID}`);
     tableAmount.textContent = "Amount";
 
+    var tableTotal = document.createElement("th");
+
+    tableTotal.setAttribute("id", `tableTotal${elementID}`);
+    tableTotal.textContent = "Total";
+
     sectionTable.appendChild(table);
 
     table.appendChild(tableTitle);
@@ -59,6 +66,7 @@ function createTable(tableName) {
     table.appendChild(tableDescription);
     table.appendChild(tableCategory);
     table.appendChild(tableAmount);
+    table.appendChild(tableTotal);
 
   }
 
@@ -106,25 +114,18 @@ function createTable(tableName) {
       tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
       tableAmountRow.textContent = amountInputValue;
 
-      if (document.getElementById("tableTotal") == null) {
-        var tableTotal = document.createElement("th");
+      tableTotalValue += parseInt(amountInputValue);
 
-        tableTotal.setAttribute("id", "tableTotal");
-        tableTotal.textContent = "Total";
+      console.log(tableTotalValue);
 
-        table.appendChild(tableTotal);
+      var tableTotalLabel;
 
-        var tablesTotalValue = parseInt(amountInputValue);
-        
-        tablesTotalValue += amountInputValue;
+      if (document.getElementById(`tableTotalLabel${elementID}`) == null) {
+        tableTotalLabel = document.createElement("tr");
+        tableTotalLabel.setAttribute("id", `tableTotalLabel${elementID}`);
+      }
 
-        var tableTotalLabel = document.createElement("tr");
-
-        tableTotalLabel.setAttribute("id", "tableTotalLabel");
-        tableTotalLabel.textContent = tablesTotalValue;
-
-        tableTotal.appendChild(tableTotalLabel);
-      } 
+      tableTotalLabel.textContent = tableTotalValue;
 
       // Adding the elements to the table 
 
@@ -132,6 +133,7 @@ function createTable(tableName) {
       tableDescription.appendChild(tableDescriptionRow);
       tableCategory.appendChild(tableCategoryRow);
       tableAmount.appendChild(tableAmountRow);
+      tableTotal.appendChild(tableTotalLabel);
 
       dateInput.value = "";
       descriptionInput.value = "";
