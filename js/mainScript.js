@@ -11,19 +11,29 @@ var form = document.getElementById("formID");
 var main = document.getElementById("mainSemantic");
 var addBtn = document.getElementById("addElementsBtn");
 var elementID = 0;
-var tableTotalValue = 0;
 var totalValue = 0;
+
+// Creating the subsection to store the sections
+
+if (document.getElementById("subSectionMain") == null) {
+  var subSectionMain = document.createElement("section");
+
+  subSectionMain.setAttribute("id", "subSectionMain");
+
+  main.appendChild(subSectionMain);
+}
 
 // Creating table
 
 function createTable(tableName) {
   if (document.getElementById(`section${elementID}`) == null) {
+    var tableTotalValue = 0;
 
     var sectionTable = document.createElement("section");
 
     sectionTable.setAttribute("id", `section${elementID}`);
 
-    main.appendChild(sectionTable);
+    subSectionMain.appendChild(sectionTable);
 
     var table = document.createElement("table");
 
@@ -114,9 +124,15 @@ function createTable(tableName) {
       tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
       tableAmountRow.textContent = amountInputValue;
 
-      tableTotalValue += parseInt(amountInputValue);
+      // Adding value to the totalValue
 
-      console.log(tableTotalValue);
+      totalValue += parseInt(amountInputValue);
+
+      console.log(totalValue);
+
+      // Adding value to the tableTotalValue
+
+      tableTotalValue += parseInt(amountInputValue);
 
       var tableTotalLabel;
 
@@ -140,22 +156,38 @@ function createTable(tableName) {
       categoryInput.value = "";
       amountInput.value = "";
 
-      //TERMINAR DE MONTAR
-      //
-      // if (document.getElementById("totalSection") && document.getElementById("totalLabel") == null) {
-      //   var totalSection = document.createElement("section");
-      //
-      //   totalSection.setAttribute("id", "totalSection");
-      //
-      //   var totalLabel = document.createElement("label");
-      //
-      //   var total = ;
-      //
-      //   totalLabel.setAttribute("id", "totalLabel");
-      //   totalLabel.textContent = 
-      //
-      //   totalSection.appendChild(totalLabel);
-      // }
+      // Creating an horizontal line to separate the total result
+
+      var totalLabel;
+
+      if (document.getElementById("separateTotalSection") == null) {
+        var separateTotalSection = document.createElement("section");
+
+        separateTotalSection.setAttribute("id", "separateTotalSection");
+
+        main.appendChild(separateTotalSection);
+
+        var horizontalLine = document.createElement("p");
+
+        horizontalLine.setAttribute("id", "horizontalLineTotal");
+        horizontalLine.setAttribute("class", "horizontalLine");
+
+        separateTotalSection.appendChild(horizontalLine);
+
+        var totalSection = document.createElement("section");
+
+        totalSection.setAttribute("id", "totalSection");
+
+        totalLabel = document.createElement("h1");
+
+        totalLabel.setAttribute("id", "totalLabel");
+
+        totalSection.appendChild(totalLabel);
+
+        separateTotalSection.appendChild(totalSection);
+      }
+
+      totalLabel.textContent = totalValue;
 
       elementID++;
     } else {
@@ -168,11 +200,11 @@ function addRemoveMoney() {
 
   // Create horizontal line
 
-  if (document.getElementById("horizontalLine") == null) {
+  if (document.getElementById("horizontalLineForm") == null) {
     var horizontalLine = document.createElement("p");
 
-    horizontalLine.setAttribute("id", "horizontalLine");
-    horizontalLine.style.borderBottom = "2px solid black";
+    horizontalLine.setAttribute("id", "horizontalLineForm");
+    horizontalLine.setAttribute("class", "horizontalLine");
 
     mainContainer.appendChild(horizontalLine);
   }
