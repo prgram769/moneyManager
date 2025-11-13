@@ -13,6 +13,10 @@ var addBtn = document.getElementById("addElementsBtn");
 var elementID = 0;
 var totalValue = 0;
 
+// Creating the var for the total value label
+
+var totalLabel;
+
 // Creating the subsection to store the sections
 
 if (document.getElementById("subSectionMain") == null) {
@@ -92,9 +96,28 @@ function createTable(tableName) {
 
   addElementsCell.appendChild(addElementsBtn);
 
+  // Creating a table delete button
+
+  var deleteTableButtonCell = document.createElement("td");
+
+  table.appendChild(deleteTableButtonCell);
+
+  var deleteTableButton = document.createElement("button");
+
+  deleteTableButton.setAttribute("id", "deleteTableButtonCell");
+  deleteTableButton.textContent = "Delete table";
+
+  deleteTableButtonCell.appendChild(deleteTableButton);
+
+  deleteTableButton.addEventListener("click", (event) => {
+    var buttonTableParent = event.target.closest("section");
+
+    subSectionMain.removeChild(buttonTableParent);
+  });
+
   addElementsBtn.addEventListener("click", (event) => {
 
-    // Geting the values to the table's rows
+    // Geting the values for the table's rows
 
     var dateInputValue = dateInput.value;
     var descriptionInputValue = descriptionInput.value;
@@ -128,8 +151,6 @@ function createTable(tableName) {
 
       totalValue += parseInt(amountInputValue);
 
-      console.log(totalValue);
-
       // Adding value to the tableTotalValue
 
       tableTotalValue += parseInt(amountInputValue);
@@ -156,43 +177,42 @@ function createTable(tableName) {
       categoryInput.value = "";
       amountInput.value = "";
 
-      // Creating an horizontal line to separate the total result
-
-      var totalLabel;
-
-      if (document.getElementById("separateTotalSection") == null) {
-        var separateTotalSection = document.createElement("section");
-
-        separateTotalSection.setAttribute("id", "separateTotalSection");
-
-        main.appendChild(separateTotalSection);
-
-        var horizontalLine = document.createElement("p");
-
-        horizontalLine.setAttribute("id", "horizontalLineTotal");
-        horizontalLine.setAttribute("class", "horizontalLine");
-
-        separateTotalSection.appendChild(horizontalLine);
-
-        var totalSection = document.createElement("section");
-
-        totalSection.setAttribute("id", "totalSection");
-
-        totalLabel = document.createElement("h1");
-
-        totalLabel.setAttribute("id", "totalLabel");
-
-        totalSection.appendChild(totalLabel);
-
-        separateTotalSection.appendChild(totalSection);
-      }
-
-      totalLabel.textContent = totalValue;
-
       elementID++;
     } else {
       alert("You must fill the gaps with the specific data");
     }
+
+    // Creating an horizontal line to separate the total result
+
+    if (document.getElementById("separateTotalSection") == null) {
+      var separateTotalSection = document.createElement("section");
+
+      separateTotalSection.setAttribute("id", "separateTotalSection");
+
+      main.appendChild(separateTotalSection);
+
+      var horizontalLine = document.createElement("p");
+
+      horizontalLine.setAttribute("id", "horizontalLineTotal");
+      horizontalLine.setAttribute("class", "horizontalLine");
+
+      separateTotalSection.appendChild(horizontalLine);
+
+      var totalSection = document.createElement("section");
+
+      totalSection.setAttribute("id", "totalSection");
+
+      totalLabel = document.createElement("h1");
+
+      totalLabel.setAttribute("id", "totalLabel");
+
+      totalSection.appendChild(totalLabel);
+
+      separateTotalSection.appendChild(totalSection);
+    }
+
+    totalLabel.textContent = "Total: " + totalValue;
+
   })
 }
 
