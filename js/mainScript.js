@@ -110,6 +110,20 @@ function createTable(tableName) {
   deleteTableButtonCell.appendChild(deleteTableButton);
 
   deleteTableButton.addEventListener("click", (event) => {
+    var tableEventTarget = event.target.closest("table");
+
+    var tableEventID = tableEventTarget.getAttribute("id");
+
+    var tableEventFinishedID = tableEventID.charAt(5);
+
+    var totalEventSelector = tableEventTarget.querySelector(`#tableTotal${tableEventFinishedID}`);
+    
+    var totalChildrenContent = totalEventSelector.children[0].textContent;
+
+    totalValue -= totalChildrenContent;
+
+    console.log(totalValue);
+
     var buttonTableParent = event.target.closest("section");
 
     subSectionMain.removeChild(buttonTableParent);
