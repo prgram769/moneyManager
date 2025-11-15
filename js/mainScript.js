@@ -117,16 +117,18 @@ function createTable(tableName) {
     var tableEventFinishedID = tableEventID.charAt(5);
 
     var totalEventSelector = tableEventTarget.querySelector(`#tableTotal${tableEventFinishedID}`);
-    
+
     var totalChildrenContent = totalEventSelector.children[0].textContent;
-
-    totalValue -= totalChildrenContent;
-
-    console.log(totalValue);
 
     var buttonTableParent = event.target.closest("section");
 
     subSectionMain.removeChild(buttonTableParent);
+
+    totalValue -= parseInt(totalChildrenContent);
+
+    console.log(totalValue);
+
+    totalLabel.textContent = "Total: " + totalValue;
   });
 
   addElementsBtn.addEventListener("click", (event) => {
