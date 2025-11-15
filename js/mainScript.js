@@ -126,8 +126,6 @@ function createTable(tableName) {
 
     totalValue -= parseInt(totalChildrenContent);
 
-    console.log(totalValue);
-
     totalLabel.textContent = "Total: " + totalValue;
   });
 
