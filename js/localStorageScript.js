@@ -1,6 +1,6 @@
 // Creating the localStorage script for my moneyManager page
 
-const prueba = document.getElementsByTagName("body");
+var completeBody = document.getElementsByTagName("body");
 
 const mainContainerPrueba = document.getElementById("mainContainerID");
 const addTableBtn = document.getElementById("addTableButton");
@@ -17,13 +17,13 @@ var storedBody;
 
 document.addEventListener("DOMContentLoaded", (event) => {
   if (localStorage.getItem("completeBody") == null) {
-    localStorage.setItem("completeBody", storedBody);
+    localStorage.setItem("completeBody", completeBody);
 
-    storedParagraph = localStorage.getItem("formSeparateParagraph");
+    storedBody = localStorage.getItem("completeBody");
   }
 
   if (localStorage.getItem("formSeparateParagraph") != null) {
-    mainContainerPrueba.textContent = storedParagraph;
 
+    completeBody.textContent = storedBody;
   }
 })
