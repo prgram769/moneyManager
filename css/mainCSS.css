@@ -2,6 +2,10 @@ body {
     font-family: Space Grotesk;
 }
 
+#horizontalLineForm {
+  border-bottom: 0px;
+}
+
 .horizontalLine {
   border-bottom: 2px solid black;
 }

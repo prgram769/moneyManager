@@ -234,14 +234,14 @@ function addRemoveMoney() {
 
   // Create horizontal line
 
-  if (document.getElementById("horizontalLineForm") == null) {
-    var horizontalLine = document.createElement("p");
-
-    horizontalLine.setAttribute("id", "horizontalLineForm");
-    horizontalLine.setAttribute("class", "horizontalLine");
-
-    mainContainer.appendChild(horizontalLine);
-  }
+  // if (document.getElementById("horizontalLineForm") == null) {
+  //   var horizontalLine = document.createElement("p");
+  //
+  //   horizontalLine.setAttribute("id", "horizontalLineForm");
+  //   horizontalLine.setAttribute("class", "horizontalLine");
+  //
+  //   mainContainer.appendChild(horizontalLine);
+  // }
 
   // create the table
 
