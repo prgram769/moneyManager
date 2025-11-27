@@ -6,21 +6,23 @@ const categoryInput = document.getElementById("category");
 const amountInput = document.getElementById("amount");
 const addTableButton = document.getElementById("addTableButton");
 
-var mainContainer = document.getElementById("mainContainerID");
-var form = document.getElementById("formID");
-var main = document.getElementById("mainSemantic");
-var addBtn = document.getElementById("addElementsBtn");
-var elementID = 0;
-var totalValue = 0;
+let mainContainer = document.getElementById("mainContainerID");
+let form = document.getElementById("formID");
+let main = document.getElementById("mainSemantic");
+let addBtn = document.getElementById("addElementsBtn");
+let elementID = 0;
+let totalValue = 0;
 
 // Creating the var for the total value label
 
-var totalLabel;
+let totalLabel;
 
 // Creating the subsection to store the sections
 
+let subSectionMain;
+
 if (document.getElementById("subSectionMain") == null) {
-  var subSectionMain = document.createElement("section");
+  subSectionMain = document.createElement("section");
 
   subSectionMain.setAttribute("id", "subSectionMain");
 
@@ -29,223 +31,92 @@ if (document.getElementById("subSectionMain") == null) {
 
 // Creating table
 
+// Creating the table vars
+let table;
+let tableCaption;
+let tableHeadersRow;
+let tableDateHeader;
+let tableDescriptionHeader;
+let tableCategoryHeader;
+let tableAmountHeader;
+
 function createTable(tableName) {
-  if (document.getElementById(`section${elementID}`) == null) {
-    var tableTotalValue = 0;
+  let horizontalLine = document.getElementById("horizontalLineForm");
 
-    var sectionTable = document.createElement("section");
+  horizontalLine.style.borderBottom = "2px solid black";
 
-    sectionTable.setAttribute("id", `section${elementID}`);
+  let tableSection = document.createElement("section");
 
-    subSectionMain.appendChild(sectionTable);
+  tableSection.setAttribute("id", `${tableName}Section`);
 
-    var table = document.createElement("table");
+  subSectionMain.appendChild(tableSection);
 
-    table.setAttribute("id", `table${elementID}`);
+  table = document.createElement("table");
 
-    var tableTitle = document.createElement("caption");
+  tableSection.appendChild(table);
 
-    tableTitle.setAttribute("id", `tableTitle${elementID}`);
-    tableTitle.textContent = tableName;
+  tableCaption = document.createElement("caption");
+  tableCaption.textContent = tableName;
 
-    var tableDate = document.createElement("th");
+  table.appendChild(tableCaption);
 
-    tableDate.setAttribute("id", `tableDate${elementID}`);
-    tableDate.textContent = "Date";
+  tableDateHeader = document.createElement("th");
+  tableDateHeader.textContent = "Date";
 
-    var tableDescription = document.createElement("th");
+  tableDescriptionHeader = document.createElement("th");
+  tableDescriptionHeader.textContent = "Description";
 
-    tableDescription.setAttribute("id", `tableDescription${elementID}`);
-    tableDescription.textContent = "Description";
+  tableCategoryHeader = document.createElement("th");
+  tableCategoryHeader.textContent = "Category";
 
-    var tableCategory = document.createElement("th");
+  tableAmountHeader = document.createElement("th");
+  tableAmountHeader.textContent = "Amount";
 
-    tableCategory.setAttribute("id", `tableCategory${elementID}`);
-    tableCategory.textContent = "Category";
-
-    var tableAmount = document.createElement("th");
-
-    tableAmount.setAttribute("id", `tableAmount${elementID}`);
-    tableAmount.textContent = "Amount";
-
-    var tableTotal = document.createElement("th");
-
-    tableTotal.setAttribute("id", `tableTotal${elementID}`);
-    tableTotal.textContent = "Total";
-
-    sectionTable.appendChild(table);
-
-    table.appendChild(tableTitle);
-    table.appendChild(tableDate);
-    table.appendChild(tableDescription);
-    table.appendChild(tableCategory);
-    table.appendChild(tableAmount);
-    table.appendChild(tableTotal);
-
-  }
-
-  var addElementsCell = document.createElement("td");
-
-  table.appendChild(addElementsCell);
-
-  var addElementsBtn = document.createElement("button");
-
-  addElementsBtn.setAttribute("id", "addElementsBtn");
-  addElementsBtn.type = "button";
-  addElementsBtn.textContent = "Add elements";
-
-  addElementsCell.appendChild(addElementsBtn);
-
-  // Creating a table delete button
-
-  var deleteTableButtonCell = document.createElement("td");
-
-  table.appendChild(deleteTableButtonCell);
-
-  var deleteTableButton = document.createElement("button");
-
-  deleteTableButton.setAttribute("id", "deleteTableButtonCell");
-  deleteTableButton.textContent = "Delete table";
-
-  deleteTableButtonCell.appendChild(deleteTableButton);
-
-  deleteTableButton.addEventListener("click", (event) => {
-    var tableEventTarget = event.target.closest("table");
-
-    var tableEventID = tableEventTarget.getAttribute("id");
-
-    var tableEventFinishedID = tableEventID.charAt(5);
-
-    var totalEventSelector = tableEventTarget.querySelector(`#tableTotal${tableEventFinishedID}`);
-
-    var totalChildrenContent = totalEventSelector.children[0].textContent;
-
-    var buttonTableParent = event.target.closest("section");
-
-    subSectionMain.removeChild(buttonTableParent);
-
-    totalValue -= parseInt(totalChildrenContent);
-
-    totalLabel.textContent = "Total: " + totalValue;
-  });
-
-  addElementsBtn.addEventListener("click", (event) => {
-
-    // Geting the values for the table's rows
-
-    var dateInputValue = dateInput.value;
-    var descriptionInputValue = descriptionInput.value;
-    var categoryInputValue = categoryInput.value;
-    var amountInputValue = amountInput.value;
-
-    // Making the table's rows
-
-    if (dateInputValue && descriptionInputValue && categoryInputValue && amountInputValue != null) {
-      var tableDateRow = document.createElement("tr");
-
-      tableDateRow.setAttribute("id", `tableDateRow${elementID}`);
-      tableDateRow.textContent = dateInputValue;
-
-      var tableDescriptionRow = document.createElement("tr");
-
-      tableDescriptionRow.setAttribute("id", `tableDescriptionRow${elementID}`);
-      tableDescriptionRow.textContent = descriptionInputValue;
-
-      var tableCategoryRow = document.createElement("tr");
-
-      tableCategoryRow.setAttribute("id", `tableCategoryRow${elementID}`);
-      tableCategoryRow.textContent = categoryInputValue;
-
-      var tableAmountRow = document.createElement("tr");
-
-      tableAmountRow.setAttribute("id", `tableAmountRow${elementID}`);
-      tableAmountRow.textContent = amountInputValue;
-
-      // Adding value to the totalValue
-
-      totalValue += parseInt(amountInputValue);
-
-      // Adding value to the tableTotalValue
-
-      tableTotalValue += parseInt(amountInputValue);
-
-      var tableTotalLabel;
-
-      if (document.getElementById(`tableTotalLabel${elementID}`) == null) {
-        tableTotalLabel = document.createElement("tr");
-        tableTotalLabel.setAttribute("id", `tableTotalLabel${elementID}`);
-      }
-
-      tableTotalLabel.textContent = tableTotalValue;
-
-      // Adding the elements to the table 
-
-      tableDate.appendChild(tableDateRow);
-      tableDescription.appendChild(tableDescriptionRow);
-      tableCategory.appendChild(tableCategoryRow);
-      tableAmount.appendChild(tableAmountRow);
-      tableTotal.appendChild(tableTotalLabel);
-
-      dateInput.value = "";
-      descriptionInput.value = "";
-      categoryInput.value = "";
-      amountInput.value = "";
-
-      elementID++;
-    } else {
-      alert("You must fill the gaps with the specific data");
-    }
-
-    // Creating an horizontal line to separate the total result
-
-    if (document.getElementById("separateTotalSection") == null) {
-      var separateTotalSection = document.createElement("section");
-
-      separateTotalSection.setAttribute("id", "separateTotalSection");
-
-      main.appendChild(separateTotalSection);
-
-      var horizontalLine = document.createElement("p");
-
-      horizontalLine.setAttribute("id", "horizontalLineTotal");
-      horizontalLine.setAttribute("class", "horizontalLine");
-
-      separateTotalSection.appendChild(horizontalLine);
-
-      var totalSection = document.createElement("section");
-
-      totalSection.setAttribute("id", "totalSection");
-
-      totalLabel = document.createElement("h1");
-
-      totalLabel.setAttribute("id", "totalLabel");
-
-      totalSection.appendChild(totalLabel);
-
-      separateTotalSection.appendChild(totalSection);
-    }
-
-    totalLabel.textContent = "Total: " + totalValue;
-
-  })
+  tableHeadersRow = document.createElement("tr");
+  tableHeadersRow.appendChild(tableDateHeader);
+  tableHeadersRow.appendChild(tableDescriptionHeader);
+  tableHeadersRow.appendChild(tableCategoryHeader);
+  tableHeadersRow.appendChild(tableAmountHeader);
+  
+  table.appendChild(tableHeadersRow);
+  elementID++;
 }
 
+// Creating an horizontal line to separate the total result
+
+if (document.getElementById("separateTotalSection") == null) {
+  let separateTotalSection = document.createElement("section");
+
+  separateTotalSection.setAttribute("id", "separateTotalSection");
+
+  main.appendChild(separateTotalSection);
+
+  let horizontalLine = document.createElement("p");
+
+  horizontalLine.setAttribute("id", "horizontalLineTotal");
+  horizontalLine.setAttribute("class", "horizontalLine");
+
+  separateTotalSection.appendChild(horizontalLine);
+
+  let totalSection = document.createElement("section");
+
+  totalSection.setAttribute("id", "totalSection");
+
+  totalLabel = document.createElement("h1");
+
+  totalLabel.setAttribute("id", "totalLabel");
+
+  totalSection.appendChild(totalLabel);
+
+  separateTotalSection.appendChild(totalSection);
+}
+
+totalLabel.textContent = "Total: " + totalValue;
+
 function addRemoveMoney() {
-
-  // Create horizontal line
-
-  // if (document.getElementById("horizontalLineForm") == null) {
-  //   var horizontalLine = document.createElement("p");
-  //
-  //   horizontalLine.setAttribute("id", "horizontalLineForm");
-  //   horizontalLine.setAttribute("class", "horizontalLine");
-  //
-  //   mainContainer.appendChild(horizontalLine);
-  // }
-
   // create the table
 
-  var tableName = prompt("Enter the name of the table");
+  let tableName = prompt("Enter the name of the table");
 
   tableName = tableName.charAt(0).toUpperCase() + tableName.slice(1);
 
