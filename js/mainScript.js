@@ -32,6 +32,7 @@ if (document.getElementById("subSectionMain") == null) {
 // Creating table
 
 // Creating the table vars
+
 let table;
 let tableCaption;
 let tableHeadersRow;
@@ -39,6 +40,39 @@ let tableDateHeader;
 let tableDescriptionHeader;
 let tableCategoryHeader;
 let tableAmountHeader;
+let tableTotalHeader;
+let addElementsBtnHeader;
+let addElementsBtn;
+let deleteTableBtnHeader;
+let deleteTableBtn;
+
+function addElements() {
+  // Creating the cells to the table values
+
+  let tableDataRow = document.createElement("tr");
+  let tableDateCell = document.createElement("td");
+
+  tableDateCell.textContent = dateInput.value;
+
+  let tableDescriptionCell = document.createElement("td");
+
+  tableDescriptionCell.textContent = descriptionInput.value;
+
+  let tableCategoryCell = document.createElement("td");
+
+  tableCategoryCell.textContent = categoryInput.value;
+
+  let tableAmountCell = document.createElement("td");
+  
+  tableAmountCell.textContent = amountInput.value;
+
+  tableDataRow.appendChild(tableDateCell);
+  tableDataRow.appendChild(tableDescriptionCell);
+  tableDataRow.appendChild(tableCategoryCell);
+  tableDataRow.appendChild(tableAmountCell);
+
+  table.appendChild(tableDataRow);
+}
 
 function createTable(tableName) {
   let horizontalLine = document.getElementById("horizontalLineForm");
@@ -72,46 +106,77 @@ function createTable(tableName) {
   tableAmountHeader = document.createElement("th");
   tableAmountHeader.textContent = "Amount";
 
+  tableTotalHeader = document.createElement("th");
+  tableTotalHeader.textContent = "Total";
+
+  addElementsBtnHeader = document.createElement("th");
+
+  addElementsBtn = document.createElement("button");
+  addElementsBtn.setAttribute("id", "addElementsBtn");
+  addElementsBtn.textContent = "Add elements";
+
+  addElementsBtnHeader.appendChild(addElementsBtn);
+
+  deleteTableBtnHeader = document.createElement("th");
+
+  deleteTableBtn = document.createElement("button");
+  deleteTableBtn.setAttribute("id", "deleteTableBtn");
+  deleteTableBtn.textContent = "Delete table";
+
+  deleteTableBtnHeader.appendChild(deleteTableBtn);
+
   tableHeadersRow = document.createElement("tr");
   tableHeadersRow.appendChild(tableDateHeader);
   tableHeadersRow.appendChild(tableDescriptionHeader);
   tableHeadersRow.appendChild(tableCategoryHeader);
   tableHeadersRow.appendChild(tableAmountHeader);
-  
+  tableHeadersRow.appendChild(tableTotalHeader);
+  tableHeadersRow.appendChild(addElementsBtnHeader);
+  tableHeadersRow.appendChild(deleteTableBtnHeader);
+
   table.appendChild(tableHeadersRow);
+
+  addElementsBtn.addEventListener("click", (event) => {
+    addElements();
+  })
+
+  createHorizontalTotalLine();
+
   elementID++;
 }
 
-// Creating an horizontal line to separate the total result
+function createHorizontalTotalLine() {
+  // Creating an horizontal line to separate the total result
 
-if (document.getElementById("separateTotalSection") == null) {
-  let separateTotalSection = document.createElement("section");
+  if (document.getElementById("separateTotalSection") == null) {
+    let separateTotalSection = document.createElement("section");
 
-  separateTotalSection.setAttribute("id", "separateTotalSection");
+    separateTotalSection.setAttribute("id", "separateTotalSection");
 
-  main.appendChild(separateTotalSection);
+    main.appendChild(separateTotalSection);
 
-  let horizontalLine = document.createElement("p");
+    let horizontalLine = document.createElement("p");
 
-  horizontalLine.setAttribute("id", "horizontalLineTotal");
-  horizontalLine.setAttribute("class", "horizontalLine");
+    horizontalLine.setAttribute("id", "horizontalLineTotal");
+    horizontalLine.setAttribute("class", "horizontalLine");
 
-  separateTotalSection.appendChild(horizontalLine);
+    separateTotalSection.appendChild(horizontalLine);
 
-  let totalSection = document.createElement("section");
+    let totalSection = document.createElement("section");
 
-  totalSection.setAttribute("id", "totalSection");
+    totalSection.setAttribute("id", "totalSection");
 
-  totalLabel = document.createElement("h1");
+    totalLabel = document.createElement("h1");
 
-  totalLabel.setAttribute("id", "totalLabel");
+    totalLabel.setAttribute("id", "totalLabel");
 
-  totalSection.appendChild(totalLabel);
+    totalSection.appendChild(totalLabel);
 
-  separateTotalSection.appendChild(totalSection);
+    separateTotalSection.appendChild(totalSection);
+  }
+
+  totalLabel.textContent = "Total: " + totalValue;
 }
-
-totalLabel.textContent = "Total: " + totalValue;
 
 function addRemoveMoney() {
   // create the table
