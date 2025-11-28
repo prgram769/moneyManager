@@ -45,36 +45,62 @@ let addElementsBtnHeader;
 let addElementsBtn;
 let deleteTableBtnHeader;
 let deleteTableBtn;
+let tableTotalValue;
 
 function addElements() {
   // Creating the cells to the table values
 
-  let tableDataRow = document.createElement("tr");
-  let tableDateCell = document.createElement("td");
+  if (dateInput && descriptionInput && categoryInput && amountInput == "") {
+    alert("prueba");
+  } else {
+    let tableDataRow = document.createElement("tr");
+    let tableDateCell = document.createElement("td");
 
-  tableDateCell.textContent = dateInput.value;
+    tableDateCell.textContent = dateInput.value;
 
-  let tableDescriptionCell = document.createElement("td");
+    let tableDescriptionCell = document.createElement("td");
 
-  tableDescriptionCell.textContent = descriptionInput.value;
+    tableDescriptionCell.textContent = descriptionInput.value;
 
-  let tableCategoryCell = document.createElement("td");
+    let tableCategoryCell = document.createElement("td");
 
-  tableCategoryCell.textContent = categoryInput.value;
+    tableCategoryCell.textContent = categoryInput.value;
 
-  let tableAmountCell = document.createElement("td");
-  
-  tableAmountCell.textContent = amountInput.value;
+    let tableAmountCell = document.createElement("td");
 
-  tableDataRow.appendChild(tableDateCell);
-  tableDataRow.appendChild(tableDescriptionCell);
-  tableDataRow.appendChild(tableCategoryCell);
-  tableDataRow.appendChild(tableAmountCell);
+    tableAmountCell.textContent = amountInput.value;
 
-  table.appendChild(tableDataRow);
+    let tableTotalCell = document.createElement("td");
+
+    tableDataRow.appendChild(tableDateCell);
+    tableDataRow.appendChild(tableDescriptionCell);
+    tableDataRow.appendChild(tableCategoryCell);
+    tableDataRow.appendChild(tableAmountCell);
+    tableDataRow.appendChild(tableTotalCell);
+
+    tableDateCell.textContent = dateInput.value;
+    tableDescriptionCell.textContent = descriptionInput.value;
+    tableCategoryCell.textContent = categoryInput.value;
+    tableAmountCell.textContent = amountInput.value;
+
+    tableTotalValue = amountInput.value;
+
+    tableTotalCell.textContent = tableTotalValue;
+
+    table.appendChild(tableDataRow);
+
+  }
+}
+
+function deleteTable() {
+  let buttonClosest = event.target.closest("section");
+
+  subSectionMain.removeChild(buttonClosest);
 }
 
 function createTable(tableName) {
+  tableTotalValue = 0;
+
   let horizontalLine = document.getElementById("horizontalLineForm");
 
   horizontalLine.style.borderBottom = "2px solid black";
@@ -140,6 +166,10 @@ function createTable(tableName) {
     addElements();
   })
 
+  deleteTableBtn.addEventListener("click", (event) => {
+    deleteTable();
+  })
+
   createHorizontalTotalLine();
 
   elementID++;
@@ -174,6 +204,8 @@ function createHorizontalTotalLine() {
 
     separateTotalSection.appendChild(totalSection);
   }
+
+  totalValue += parseInt(tableTotalValue);
 
   totalLabel.textContent = "Total: " + totalValue;
 }
