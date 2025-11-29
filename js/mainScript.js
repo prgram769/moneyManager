@@ -10,7 +10,7 @@ let mainContainer = document.getElementById("mainContainerID");
 let form = document.getElementById("formID");
 let main = document.getElementById("mainSemantic");
 let addBtn = document.getElementById("addElementsBtn");
-let elementID = 0;
+// let elementID = 0;
 let totalValue = 0;
 
 // Creating the var for the total value label
@@ -46,13 +46,12 @@ let addElementsBtn;
 let deleteTableBtnHeader;
 let deleteTableBtn;
 let tableTotalValue;
+let tableValue;
 
 function addElements() {
-  // Creating the cells to the table values
+  // Creating the cell to the table values and adding the values to the cells
 
-  if (dateInput && descriptionInput && categoryInput && amountInput == "") {
-    alert("prueba");
-  } else {
+  if (dateInput.value && descriptionInput.value && categoryInput.value && amountInput.value != null) {
     let tableDataRow = document.createElement("tr");
     let tableDateCell = document.createElement("td");
 
@@ -83,17 +82,31 @@ function addElements() {
     tableCategoryCell.textContent = categoryInput.value;
     tableAmountCell.textContent = amountInput.value;
 
-    tableTotalValue = amountInput.value;
+    tableTotalValue += parseInt(amountInput.value);
+
+    totalValue += parseInt(amountInput.value);
 
     tableTotalCell.textContent = tableTotalValue;
 
     table.appendChild(tableDataRow);
 
+    form.reset();
+
+    createHorizontalTotalLine();
+  } else {
+    alert("You must fill the gaps with the specific data");
   }
 }
 
 function deleteTable() {
   let buttonClosest = event.target.closest("section");
+  let totalParent = buttonClosest.children[0].children[2].children[4].textContent;
+  totalValue -= parseInt(totalParent);
+
+  console.log(tableValue);
+  console.log(totalParent);
+
+  totalLabel.textContent = `Total: ${tableValue}`;
 
   subSectionMain.removeChild(buttonClosest);
 }
@@ -170,9 +183,7 @@ function createTable(tableName) {
     deleteTable();
   })
 
-  createHorizontalTotalLine();
-
-  elementID++;
+  // elementID++;
 }
 
 function createHorizontalTotalLine() {
@@ -205,9 +216,7 @@ function createHorizontalTotalLine() {
     separateTotalSection.appendChild(totalSection);
   }
 
-  totalValue += parseInt(tableTotalValue);
-
-  totalLabel.textContent = "Total: " + totalValue;
+  totalLabel.textContent = `Total: ${totalValue}`;
 }
 
 function addRemoveMoney() {
@@ -223,5 +232,5 @@ function addRemoveMoney() {
 addTableButton.addEventListener("click", (event) => {
   addRemoveMoney();
 
-  elementID++;
+  // elementID++;
 })
