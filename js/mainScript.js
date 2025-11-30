@@ -100,13 +100,10 @@ function addElements() {
 
 function deleteTable() {
   let buttonClosest = event.target.closest("section");
-  let totalParent = buttonClosest.children[0].children[2].children[4].textContent;
+  let totalParent = buttonClosest.children[0].lastChild.children[4].textContent;
   totalValue -= parseInt(totalParent);
 
-  console.log(tableValue);
-  console.log(totalParent);
-
-  totalLabel.textContent = `Total: ${tableValue}`;
+  totalLabel.textContent = `Total: ${totalValue}`;
 
   subSectionMain.removeChild(buttonClosest);
 }
