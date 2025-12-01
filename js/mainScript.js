@@ -10,9 +10,14 @@ let mainContainer = document.getElementById("mainContainerID");
 let form = document.getElementById("formID");
 let main = document.getElementById("mainSemantic");
 let addBtn = document.getElementById("addElementsBtn");
-// let elementID = 0;
 let totalValue = 0;
-
+let totalTables = localStorage.getItem("totalTables") || 0;
+let tablesCaptions = JSON.parse(localStorage.getItem("tablesCaptions")) || [];
+let tablesDates = JSON.parse(localStorage.getItem("tablesDates")) || [];
+let tablesDescriptions = JSON.parse(localStorage.getItem("tablesDescription")) || [];
+let tablesCategories = JSON.parse(localStorage.getItem("tablesCategories")) || [];
+let tablesAmounts = JSON.parse(localStorage.getItem("tablesAmounts")) || [];
+let totalValueLocalStorage = localStorage.getItem("totalValueLocalStorage") || 0;
 // Creating the var for the total value label
 
 let totalLabel;
@@ -89,6 +94,18 @@ function addElements() {
     tableTotalCell.textContent = tableTotalValue;
 
     table.appendChild(tableDataRow);
+
+    // Adding the data to localStorage
+
+    tablesDates.push(tableDateCell.textContent);
+    tablesDescriptions.push(tableDescriptionCell.textContent);
+    tablesCategories.push(tableCategoryCell.textContent);
+    tablesAmounts.push(tableAmountCell.textContent);
+
+    localStorage.setItem("tablesDates", JSON.stringify(tablesDates));
+    localStorage.setItem("tablesDescriptions", JSON.stringify(tablesDescriptions));
+    localStorage.setItem("tablesCategories", JSON.stringify(tablesCategories));
+    localStorage.setItem("tablesAmounts", JSON.stringify(tablesAmounts));
 
     form.reset();
 
@@ -180,7 +197,13 @@ function createTable(tableName) {
     deleteTable();
   })
 
-  // elementID++;
+  totalTables++;
+
+  localStorage.setItem("totalTables", totalTables);
+
+  tablesCaptions.push(tableCaption.textContent);
+
+  localStorage.setItem("tablesCaptions",JSON.stringify(tablesCaptions));
 }
 
 function createHorizontalTotalLine() {
@@ -228,6 +251,14 @@ function addRemoveMoney() {
 
 addTableButton.addEventListener("click", (event) => {
   addRemoveMoney();
+})
 
-  // elementID++;
+// Creating the function to display the tasks when you reload
+
+function displayTasksReload() {
+  
+}
+
+document.addEventListener("DOMContentLoaded", (event) => {
+
 })
