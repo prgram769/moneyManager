@@ -82,11 +82,6 @@ function addElements() {
     tableDataRow.appendChild(tableAmountCell);
     tableDataRow.appendChild(tableTotalCell);
 
-    tableDateCell.textContent = dateInput.value;
-    tableDescriptionCell.textContent = descriptionInput.value;
-    tableCategoryCell.textContent = categoryInput.value;
-    tableAmountCell.textContent = amountInput.value;
-
     tableTotalValue += parseInt(amountInput.value);
 
     totalValue += parseInt(amountInput.value);
@@ -203,12 +198,122 @@ function createTable(tableName) {
 
   tablesCaptions.push(tableCaption.textContent);
 
-  localStorage.setItem("tablesCaptions",JSON.stringify(tablesCaptions));
+  localStorage.setItem("tablesCaptions", JSON.stringify(tablesCaptions));
 }
 
-function createHorizontalTotalLine() {
-  // Creating an horizontal line to separate the total result
+// Creating the functions to display the tasks when you reload
 
+function createTableToLocalStorage(tableName) {
+  let horizontalLine = document.getElementById("horizontalLineForm");
+
+  horizontalLine.style.borderBottom = "2px solid black";
+
+  let tableSection = document.createElement("section");
+
+  tableSection.setAttribute("id", `${tableName}Section`);
+
+  subSectionMain.appendChild(tableSection);
+
+  table = document.createElement("table");
+
+  tableSection.appendChild(table);
+
+  tableCaption = document.createElement("caption");
+  tableCaption.textContent = tableName;
+
+  table.appendChild(tableCaption);
+
+  tableDateHeader = document.createElement("th");
+  tableDateHeader.textContent = "Date";
+
+  tableDescriptionHeader = document.createElement("th");
+  tableDescriptionHeader.textContent = "Description";
+
+  tableCategoryHeader = document.createElement("th");
+  tableCategoryHeader.textContent = "Category";
+
+  tableAmountHeader = document.createElement("th");
+  tableAmountHeader.textContent = "Amount";
+
+  tableTotalHeader = document.createElement("th");
+  tableTotalHeader.textContent = "Total";
+
+  addElementsBtnHeader = document.createElement("th");
+
+  addElementsBtn = document.createElement("button");
+  addElementsBtn.setAttribute("id", "addElementsBtn");
+  addElementsBtn.textContent = "Add elements";
+
+  addElementsBtnHeader.appendChild(addElementsBtn);
+
+  deleteTableBtnHeader = document.createElement("th");
+
+  deleteTableBtn = document.createElement("button");
+  deleteTableBtn.setAttribute("id", "deleteTableBtn");
+  deleteTableBtn.textContent = "Delete table";
+
+  deleteTableBtnHeader.appendChild(deleteTableBtn);
+
+  tableHeadersRow = document.createElement("tr");
+  tableHeadersRow.appendChild(tableDateHeader);
+  tableHeadersRow.appendChild(tableDescriptionHeader);
+  tableHeadersRow.appendChild(tableCategoryHeader);
+  tableHeadersRow.appendChild(tableAmountHeader);
+  tableHeadersRow.appendChild(tableTotalHeader);
+  tableHeadersRow.appendChild(addElementsBtnHeader);
+  tableHeadersRow.appendChild(deleteTableBtnHeader);
+
+  table.appendChild(tableHeadersRow);
+
+  addElementsBtn.addEventListener("click", (event) => {
+    addElements();
+  })
+
+  deleteTableBtn.addEventListener("click", (event) => {
+    deleteTable();
+  })
+}
+
+function addElementsReload(tablesDates, tablesDescriptions, tablesCategories, tablesAmounts) {
+  let tableDataRow = document.createElement("tr");
+  let tableDateCell = document.createElement("td");
+
+  tableDateCell.textContent = tablesDates;
+
+  let tableDescriptionCell = document.createElement("td");
+
+  tableDescriptionCell.textContent = tablesDescriptions;
+
+  let tableCategoryCell = document.createElement("td");
+
+  tableCategoryCell.textContent = tablesCategories;
+
+  let tableAmountCell = document.createElement("td");
+
+  tableAmountCell.textContent = tablesAmounts;
+
+  let tableTotalCell = document.createElement("td");
+
+  tableDataRow.appendChild(tableDateCell);
+  tableDataRow.appendChild(tableDescriptionCell);
+  tableDataRow.appendChild(tableCategoryCell);
+  tableDataRow.appendChild(tableAmountCell);
+  tableDataRow.appendChild(tableTotalCell);
+
+  tableTotalValue += parseInt(tablesAmounts);
+
+  totalValue += parseInt(tablesAmounts);
+
+  tableTotalCell.textContent = tableTotalValue;
+
+  table.appendChild(tableDataRow);
+
+  createHorizontalTotalLine();
+}
+
+// Creating a function to create an horizontal line to separate the total result
+
+function createHorizontalTotalLine() {
   if (document.getElementById("separateTotalSection") == null) {
     let separateTotalSection = document.createElement("section");
 
@@ -253,12 +358,17 @@ addTableButton.addEventListener("click", (event) => {
   addRemoveMoney();
 })
 
-// Creating the function to display the tasks when you reload
-
-function displayTasksReload() {
-  
-}
-
 document.addEventListener("DOMContentLoaded", (event) => {
+  let tableTotals = localStorage.getItem("totalTables");
+  let tableTitle = JSON.parse(localStorage.getItem("tablesCaptions"));
+  let tableDate = JSON.parse(localStorage.getItem("tablesDates"));
+  let tableDescription = JSON.parse(localStorage.getItem("tablesDescriptions"));
+  let tableCategory = JSON.parse(localStorage.getItem("tablesCategories"));
+  let tableAmount = JSON.parse(localStorage.getItem("tablesAmounts"));
 
+  for (let i = 0; i < tableTotals; i++) {
+    createTableToLocalStorage(tableTitle[i]);
+
+    addElementsReload(tableDate[i], tableDescription[i], tableCategory[i], tableAmount[i]);
+  }
 })
