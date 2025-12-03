@@ -12,12 +12,15 @@ let main = document.getElementById("mainSemantic");
 let addBtn = document.getElementById("addElementsBtn");
 let totalValue = 0;
 let totalTables = localStorage.getItem("totalTables") || 0;
+let eventsForTable = localStorage.getItem("eventsForTable") || 0;
 let tablesCaptions = JSON.parse(localStorage.getItem("tablesCaptions")) || [];
 let tablesDates = JSON.parse(localStorage.getItem("tablesDates")) || [];
 let tablesDescriptions = JSON.parse(localStorage.getItem("tablesDescription")) || [];
 let tablesCategories = JSON.parse(localStorage.getItem("tablesCategories")) || [];
 let tablesAmounts = JSON.parse(localStorage.getItem("tablesAmounts")) || [];
-let totalValueLocalStorage = localStorage.getItem("totalValueLocalStorage") || 0;
+let tablesTotalValue = JSON.parse(localStorage.getItem("tablesTotalValue")) || [];
+let savesElementsForTable = JSON.parse(localStorage.getItem("savesElementsForTable")) || [];
+
 // Creating the var for the total value label
 
 let totalLabel;
@@ -57,6 +60,7 @@ function addElements() {
   // Creating the cell to the table values and adding the values to the cells
 
   if (dateInput.value && descriptionInput.value && categoryInput.value && amountInput.value != null) {
+    let eventGrandParentNode = event.target.closest("table");
     let tableDataRow = document.createElement("tr");
     let tableDateCell = document.createElement("td");
 
@@ -88,7 +92,7 @@ function addElements() {
 
     tableTotalCell.textContent = tableTotalValue;
 
-    table.appendChild(tableDataRow);
+    eventGrandParentNode.appendChild(tableDataRow);
 
     // Adding the data to localStorage
 
@@ -96,15 +100,21 @@ function addElements() {
     tablesDescriptions.push(tableDescriptionCell.textContent);
     tablesCategories.push(tableCategoryCell.textContent);
     tablesAmounts.push(tableAmountCell.textContent);
+    tablesTotalValue.push(tableTotalCell.textContent);
 
     localStorage.setItem("tablesDates", JSON.stringify(tablesDates));
     localStorage.setItem("tablesDescriptions", JSON.stringify(tablesDescriptions));
     localStorage.setItem("tablesCategories", JSON.stringify(tablesCategories));
     localStorage.setItem("tablesAmounts", JSON.stringify(tablesAmounts));
+    localStorage.setItem("tablesTotalValue", JSON.stringify(tablesTotalValue));
 
     form.reset();
 
     createHorizontalTotalLine();
+
+    eventsForTable++;
+
+    localStorage.setItem("eventsForTable", eventsForTable);
   } else {
     alert("You must fill the gaps with the specific data");
   }
@@ -272,9 +282,15 @@ function createTableToLocalStorage(tableName) {
   deleteTableBtn.addEventListener("click", (event) => {
     deleteTable();
   })
+
+  savesElementsForTable.push(eventsForTable);
+
+  localStorage.setItem("savesElementsForTable", JSON.stringify(savesElementsForTable));
+
+  eventsForTable = 0;
 }
 
-function addElementsReload(tablesDates, tablesDescriptions, tablesCategories, tablesAmounts) {
+function addElementsReload(tablesDates, tablesDescriptions, tablesCategories, tablesAmounts, tablesTotalValue) {
   let tableDataRow = document.createElement("tr");
   let tableDateCell = document.createElement("td");
 
@@ -304,7 +320,7 @@ function addElementsReload(tablesDates, tablesDescriptions, tablesCategories, ta
 
   totalValue += parseInt(tablesAmounts);
 
-  tableTotalCell.textContent = tableTotalValue;
+  tableTotalCell.textContent = tablesTotalValue;
 
   table.appendChild(tableDataRow);
 
@@ -369,6 +385,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   for (let i = 0; i < tableTotals; i++) {
     createTableToLocalStorage(tableTitle[i]);
 
-    addElementsReload(tableDate[i], tableDescription[i], tableCategory[i], tableAmount[i]);
+    addElementsReload(tableDate[i], tableDescription[i], tableCategory[i], tableAmount[i], tablesTotalValue[i]);
   }
 })
