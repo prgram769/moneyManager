@@ -86,13 +86,17 @@ function addElements() {
     tableDataRow.appendChild(tableAmountCell);
     tableDataRow.appendChild(tableTotalCell);
 
-    tableTotalValue += parseInt(amountInput.value);
+    eventGrandParentNode.appendChild(tableDataRow);
+
+    let prueba = event.target.closest("table").lastChild.children[3].textContent;
+
+    console.log(prueba)
+
+    tableTotalValue += parseInt(prueba);
 
     totalValue += parseInt(amountInput.value);
 
     tableTotalCell.textContent = tableTotalValue;
-
-    eventGrandParentNode.appendChild(tableDataRow);
 
     // Adding the data to localStorage
 
