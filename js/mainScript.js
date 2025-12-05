@@ -11,7 +11,7 @@ let form = document.getElementById("formID");
 let main = document.getElementById("mainSemantic");
 let addBtn = document.getElementById("addElementsBtn");
 let totalValue = 0;
-let totalTables = localStorage.getItem("totalTables") || 0;
+let totalTables = localStorage.getItem("totalTables") || -1;
 let eventsForTable = localStorage.getItem("eventsForTable") || 0;
 let tablesCaptions = JSON.parse(localStorage.getItem("tablesCaptions")) || [];
 let tablesDates = JSON.parse(localStorage.getItem("tablesDates")) || [];
@@ -41,20 +41,24 @@ if (document.getElementById("subSectionMain") == null) {
 
 // Creating the table vars
 
-let table;
-let tableCaption;
-let tableHeadersRow;
-let tableDateHeader;
-let tableDescriptionHeader;
-let tableCategoryHeader;
-let tableAmountHeader;
-let tableTotalHeader;
-let addElementsBtnHeader;
-let addElementsBtn;
-let deleteTableBtnHeader;
-let deleteTableBtn;
-let tableTotalValue;
-let tableValue;
+// let table;
+// let tableCaption;
+// let tableHeadersRow;
+// let tableDateHeader;
+// let tableDescriptionHeader;
+// let tableCategoryHeader;
+// let tableAmountHeader;
+// let tableTotalHeader;
+// let addElementsBtnHeader;
+// let addElementsBtn;
+// let deleteTableBtnHeader;
+// let deleteTableBtn;
+let tableTotalValue = 0;
+// let tableValue;
+
+// verify that is new table
+
+let isNewTable = false;
 
 function addElements() {
   // Creating the cell to the table values and adding the values to the cells
@@ -88,15 +92,33 @@ function addElements() {
 
     eventGrandParentNode.appendChild(tableDataRow);
 
-    let prueba = event.target.closest("table").lastChild.children[3].textContent;
+    if (isNewTable == false) {
+      let prueba = event.target.closest("table").lastChild.children[3].textContent;
 
-    console.log(prueba)
+      console.log(prueba)
 
-    tableTotalValue += parseInt(prueba);
+      tableTotalValue += parseInt(prueba);
 
-    totalValue += parseInt(amountInput.value);
+      totalValue += parseInt(amountInput.value);
 
-    tableTotalCell.textContent = tableTotalValue;
+      tableTotalCell.textContent = tableTotalValue;
+
+    } else {
+      let prueba = event.target.closest("table").lastChild.children[3].textContent;
+
+      console.log(prueba);
+
+      console.log("prueba else");
+
+      tableTotalValue = 0;
+      tableTotalValue += parseInt(prueba);
+
+      totalValue += parseInt(amountInput.value);
+
+      tableTotalCell.textContent = tableTotalValue;
+
+      isNewTable = false;
+    }
 
     // Adding the data to localStorage
 
@@ -135,7 +157,7 @@ function deleteTable() {
 }
 
 function createTable(tableName) {
-  tableTotalValue = 0;
+  // let tableTotalValue = 0;
 
   let horizontalLine = document.getElementById("horizontalLineForm");
 
@@ -151,43 +173,43 @@ function createTable(tableName) {
 
   tableSection.appendChild(table);
 
-  tableCaption = document.createElement("caption");
+  let tableCaption = document.createElement("caption");
   tableCaption.textContent = tableName;
 
   table.appendChild(tableCaption);
 
-  tableDateHeader = document.createElement("th");
+  let tableDateHeader = document.createElement("th");
   tableDateHeader.textContent = "Date";
 
-  tableDescriptionHeader = document.createElement("th");
+  let tableDescriptionHeader = document.createElement("th");
   tableDescriptionHeader.textContent = "Description";
 
-  tableCategoryHeader = document.createElement("th");
+  let tableCategoryHeader = document.createElement("th");
   tableCategoryHeader.textContent = "Category";
 
-  tableAmountHeader = document.createElement("th");
+  let tableAmountHeader = document.createElement("th");
   tableAmountHeader.textContent = "Amount";
 
-  tableTotalHeader = document.createElement("th");
+  let tableTotalHeader = document.createElement("th");
   tableTotalHeader.textContent = "Total";
 
-  addElementsBtnHeader = document.createElement("th");
+  let addElementsBtnHeader = document.createElement("th");
 
-  addElementsBtn = document.createElement("button");
+  let addElementsBtn = document.createElement("button");
   addElementsBtn.setAttribute("id", "addElementsBtn");
   addElementsBtn.textContent = "Add elements";
 
   addElementsBtnHeader.appendChild(addElementsBtn);
 
-  deleteTableBtnHeader = document.createElement("th");
+  let deleteTableBtnHeader = document.createElement("th");
 
-  deleteTableBtn = document.createElement("button");
+  let deleteTableBtn = document.createElement("button");
   deleteTableBtn.setAttribute("id", "deleteTableBtn");
   deleteTableBtn.textContent = "Delete table";
 
   deleteTableBtnHeader.appendChild(deleteTableBtn);
 
-  tableHeadersRow = document.createElement("tr");
+  let tableHeadersRow = document.createElement("tr");
   tableHeadersRow.appendChild(tableDateHeader);
   tableHeadersRow.appendChild(tableDescriptionHeader);
   tableHeadersRow.appendChild(tableCategoryHeader);
@@ -213,6 +235,10 @@ function createTable(tableName) {
   tablesCaptions.push(tableCaption.textContent);
 
   localStorage.setItem("tablesCaptions", JSON.stringify(tablesCaptions));
+
+  if (totalTables != 0) {
+    isNewTable = true;
+  }
 }
 
 // Creating the functions to display the tasks when you reload
@@ -232,43 +258,43 @@ function createTableToLocalStorage(tableName) {
 
   tableSection.appendChild(table);
 
-  tableCaption = document.createElement("caption");
+  let tableCaption = document.createElement("caption");
   tableCaption.textContent = tableName;
 
   table.appendChild(tableCaption);
 
-  tableDateHeader = document.createElement("th");
+  let tableDateHeader = document.createElement("th");
   tableDateHeader.textContent = "Date";
 
-  tableDescriptionHeader = document.createElement("th");
+  let tableDescriptionHeader = document.createElement("th");
   tableDescriptionHeader.textContent = "Description";
 
-  tableCategoryHeader = document.createElement("th");
+  let tableCategoryHeader = document.createElement("th");
   tableCategoryHeader.textContent = "Category";
 
-  tableAmountHeader = document.createElement("th");
+  let tableAmountHeader = document.createElement("th");
   tableAmountHeader.textContent = "Amount";
 
-  tableTotalHeader = document.createElement("th");
+  let tableTotalHeader = document.createElement("th");
   tableTotalHeader.textContent = "Total";
 
-  addElementsBtnHeader = document.createElement("th");
+  let addElementsBtnHeader = document.createElement("th");
 
-  addElementsBtn = document.createElement("button");
+  let addElementsBtn = document.createElement("button");
   addElementsBtn.setAttribute("id", "addElementsBtn");
   addElementsBtn.textContent = "Add elements";
 
   addElementsBtnHeader.appendChild(addElementsBtn);
 
-  deleteTableBtnHeader = document.createElement("th");
+  let deleteTableBtnHeader = document.createElement("th");
 
-  deleteTableBtn = document.createElement("button");
+  let deleteTableBtn = document.createElement("button");
   deleteTableBtn.setAttribute("id", "deleteTableBtn");
   deleteTableBtn.textContent = "Delete table";
 
   deleteTableBtnHeader.appendChild(deleteTableBtn);
 
-  tableHeadersRow = document.createElement("tr");
+  let tableHeadersRow = document.createElement("tr");
   tableHeadersRow.appendChild(tableDateHeader);
   tableHeadersRow.appendChild(tableDescriptionHeader);
   tableHeadersRow.appendChild(tableCategoryHeader);
